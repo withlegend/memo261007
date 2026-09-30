@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공주님의 30일 미션</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #fdf6f0;
+    color: #4a3728;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  /* 상단 헤더 */
+  .hero {
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+    text-align: center;
+    padding: 48px 20px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0; right: 0;
+    height: 40px;
+    background: #fdf6f0;
+    border-radius: 50% 50% 0 0;
+  }
+  .hero-emoji {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: 'Gowun Batang', serif;
+    font-size: 24px;
+    color: #880e4f;
+    margin-bottom: 6px;
+  }
+  .hero p {
+    font-size: 14px;
+    color: #ad1457;
+    font-weight: 300;
+  }
+
+  /* 인사말 카드 */
+  .greeting {
+    max-width: 440px;
+    margin: 28px auto 0;
+    padding: 0 16px;
+  }
+  .greeting-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 22px;
+    box-shadow: 0 2px 16px rgba(244,143,177,0.15);
+    border: 1px solid #fce4ec;
+    font-family: 'Gowun Batang', serif;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #5d4037;
+    position: relative;
+  }
+  .greeting-card::before {
+    content: '"';
+    font-size: 64px;
+    color: #f8bbd0;
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    font-family: Georgia, serif;
+  }
+  .greeting-card .sign {
+    text-align: right;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #e91e63;
+  }
+
+  /* 섹션 */
+  .section {
+    max-width: 440px;
+    margin: 28px auto 0;
+    padding: 0 16px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .section-title .icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #f48fb1, #e91e63);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-size: 17px;
+    color: #880e4f;
+  }
+
+  /* 카드 */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border: 1px solid #fce4ec;
+  }
+  .card h3 {
+    font-size: 15px;
+    color: #c2185b;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card p, .card li {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #5d4037;
+  }
+  .card ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+  .card li { margin-bottom: 4px; }
+
+  /* 타임라인 (전반/후반) */
+  .phase {
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .phase-1 {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border: 1px solid #a5d6a7;
+  }
+  .phase-2 {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border: 1px solid #90caf9;
+  }
+  .phase .label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .phase-1 .label { background: #66bb6a; color: #fff; }
+  .phase-2 .label { background: #42a5f5; color: #fff; }
+  .phase h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .phase-1 h3 { color: #2e7d32; }
+  .phase-2 h3 { color: #1565c0; }
+  .phase p, .phase li {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #37474f;
+  }
+  .phase ul { padding-left: 18px; margin-top: 6px; }
+
+  /* 하루 팩 구성 */
+  .pack-visual {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .pack-item {
+    background: #fff;
+    border: 2px dashed #f48fb1;
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+    width: 90px;
+    font-size: 11px;
+    color: #880e4f;
+    line-height: 1.5;
+  }
+  .pack-item .pack-emoji {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .pack-item .pack-label {
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  /* 체크포인트 */
+  .checkpoint {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .checkpoint .check-icon {
+    width: 28px;
+    height: 28px;
+    background: #fce4ec;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .checkpoint p {
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .checkpoint strong {
+    color: #c2185b;
+  }
+
+  /* 팁 박스 */
+  .tip-box {
+    background: #fff8e1;
+    border-left: 4px solid #ffc107;
+    border-radius: 0 12px 12px 0;
+    padding: 14px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5d4037;
+  }
+
+  /* 푸터 */
+  .footer {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-family: 'Gowun Batang', serif;
+    color: #e91e63;
+    font-size: 16px;
+  }
+  .footer .heart {
+    font-size: 28px;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="hero">
+  <div class="hero-emoji">💊💕</div>
+  <h1>공주님의 30일 프로젝트</h1>
+  <p>테토가 준비한 건강 미션 가이드</p>
+</div>
+
+<!-- 인사말 -->
+<div class="greeting">
+  <div class="greeting-card">
+    <br>
+    안녕 공주야! 히히<br><br>
+    이 페이지는 테토가 공주님을 위해 만든<br>
+    30일 복용 가이드예요.<br><br>
+    매일 카드링에 끼워둔 팩이랑 미션편지,<br>
+    잊어버릴 수 있으니까 여기에도 정리해뒀어요.<br><br>
+    하루 세 번, 밥 먹기 전에 까먹지 말고 먹기!<br>
+    공주님이 더 예뻐지고 건강해지는 거<br>
+    내가 제일 응원하고 있어요. 화이팅!!
+    <div class="sign">— 사랑하는 테토가 💌</div>
+  </div>
+</div>
+
+<!-- 하루 팩 구성 -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon">📦</div>
+    <h2>하루 팩 구성</h2>
+  </div>
+  <div class="card">
+    <p>카드링 하나에 이렇게 4개가 끼워져 있어요:</p>
+    <div class="pack-visual">
+      <div class="pack-item">
+        <div class="pack-emoji">💌</div>
+        <div class="pack-label">미션편지</div>
+        오늘의 미션!
+      </div>
+      <div class="pack-item">
+        <div class="pack-emoji">🌅</div>
+        <div class="pack-label">아침 팩</div>
+        알룬 2알<br>+ 한약 1포
+      </div>
+      <div class="pack-item">
+        <div class="pack-emoji">☀️</div>
+        <div class="pack-label">점심 팩</div>
+        알룬 2알<br>+ 한약 1포
+      </div>
+      <div class="pack-item">
+        <div class="pack-emoji">🌙</div>
+        <div class="pack-label">저녁 팩</div>
+        알룬 2알<br>+ 한약 1포
+      </div>
+    </div>
+    <p style="font-size:12px; color:#999; text-align:center;">각 팩에는 쪽지도 같이 들어있어요 ♥</p>
+  </div>
+</div>
+
+<!-- 복용 방법 -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon">💊</div>
+    <h2>복용 방법</h2>
+  </div>
+  <div class="card">
+    <h3>⏰ 하루 3회, 식전 복용</h3>
+    <p>매 식사 <strong style="color:#c2185b">30분~1시간 전</strong>에 복용해요.</p>
+    <br>
+    <h3>🥛 물 필수!</h3>
+    <p><strong style="color:#c2185b">물 한 컵 이상(200~300ml)</strong>과 함께 먹어야 해요.<br>
+    알룬이 위에서 잘 부풀어 올라야 포만감이 생기고,<br>
+    한약 배출 작용도 물이 있어야 잘 돼요!</p>
+  </div>
+</div>
+
+<!-- 전반 / 후반 -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon">📋</div>
+    <h2>30일 플랜</h2>
+  </div>
+
+  <div class="phase phase-1">
+    <span class="label">전반 15일</span>
+    <h3>🟢 1~15일차: 알룬 2알 + 구미반하탕 1포</h3>
+    <p><strong>몸 전체 지방 분해 & 내장지방 타격 단계</strong></p>
+    <ul>
+      <li>내장지방·피하지방 제거</li>
+      <li>중성지방 감소 & 콜레스테롤 개선</li>
+      <li>몸 전체 지방을 녹여서 대사의 길을 열어줘요</li>
+      <li>알룬의 포만감 + 구미반하탕의 지방분해 = 초기 시너지!</li>
+    </ul>
+  </div>
+
+  <div class="phase phase-2">
+    <span class="label">후반 15일</span>
+    <h3>🔵 16~30일차: 알룬 2알 + 방풍통성산 1포</h3>
+    <p><strong>뱃살 집중 감량 & 노폐물 강력 배출 단계</strong></p>
+    <ul>
+      <li>복부비만(뱃살) 집중 공략</li>
+      <li>변비 제거 & 독소·노폐물 배출</li>
+      <li>전반에서 지방 분해해 둔 상태에서 → 뱃살 마무리!</li>
+      <li>복부 라인을 매끄럽게 정리해줘요</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🤔 왜 섞어 먹으면 안 돼요?</h3>
+    <p>한약은 약효가 몸에 <strong style="color:#c2185b">일정 기간 꾸준히 쌓여야</strong> 지방이 연속적으로 녹고 배출돼요.<br><br>
+    매일 바꿔 먹으면 효과가 흐지부지돼서 제대로 된 지방 분해 효과를 보기 어려워요. 그래서 <strong style="color:#c2185b">15일씩 나눠서</strong> 먹는 거예요!</p>
+  </div>
+</div>
+
+<!-- 체크포인트 -->
+<div class="section">
+  <div class="section-title">
+    <div class="icon">✅</div>
+    <h2>체크포인트</h2>
+  </div>
+  <div class="card">
+    <div class="checkpoint">
+      <div class="check-icon">💧</div>
+      <p><strong>물 많이 마시기!</strong><br>
+      하루 <strong>1.5~2L 이상</strong> 마시면 좋아요.<br>
+      알룬 포만감 유지 + 방풍통성산 노폐물 배출에 필수!</p>
+    </div>
+    <div class="checkpoint">
+      <div class="check-icon">🚽</div>
+      <p><strong>배변 상태 확인</strong><br>
+      후반기(방풍통성산)에는 장 운동이 활발해져서<br>
+      배변이 많이 늘어날 수 있어요.<br>
+      설사나 복통이 심하면 → <strong>하루 2포로 줄여서</strong> 조절!</p>
+    </div>
+    <div class="checkpoint">
+      <div class="check-icon">📌</div>
+      <p><strong>까먹지 않기!</strong><br>
+      하루 세 번, 식사 전에 꼭 먹기.<br>
+      까먹으면 테토한테 혼나요! (거짓말 히히)</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    💡 <strong>팁:</strong> 아침에 일어나자마자 팩을 가방에 넣어두면 점심·저녁에 까먹지 않아요!
+  </div>
+</div>
+
+<!-- 푸터 -->
+<div class="footer">
+  <div class="heart">💕</div>
+  <p style="margin-top:8px;">공주님 화이팅! 30일 뒤에 더 예뻐진 민주 기대할게요</p>
+  <p style="font-size:13px; margin-top:4px; color:#f48fb1;">사랑해요 히히</p>
+</div>
+
+</body>
+</html>
